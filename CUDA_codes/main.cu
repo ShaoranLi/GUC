@@ -45,35 +45,6 @@ int main()
 
 	//srand(time(0));
 	// Force the first subproblem to have the highest index
-	for (int i = 0; i < num_subproblem*num_sub; i++)
-	{
-		if (i % (num_sub*Kp) < num_sub)
-		{
-			rand_ball[i] = 0.0f;
-		}
-		else
-		{
-			rand_ball[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		}
-
-		if (i % (num_sub*Kp) < num_sub)
-		{
-			if (i < num_sub)
-			{
-				sampling_result[i] = 0.0f;
-			}
-			else
-			{
-				sampling_result[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-			}
-		}
-		else
-		{
-			sampling_result[i] = sampling_result[i - num_sub];
-		}
-	}
-
-	// All subproblems are generated with random samplings
 	// for (int i = 0; i < num_subproblem*num_sub; i++)
 	// {
 	// 	if (i % (num_sub*Kp) < num_sub)
@@ -101,6 +72,28 @@ int main()
 	// 		sampling_result[i] = sampling_result[i - num_sub];
 	// 	}
 	// }
+
+	// All subproblems are generated with random samplings
+	for (int i = 0; i < num_subproblem*num_sub; i++)
+	{
+		rand_ball[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+
+		if (i % (num_sub*Kp) < num_sub)
+		{
+			if (i < num_sub)
+			{
+				sampling_result[i] = 0.0f;
+			}
+			else
+			{
+				sampling_result[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+			}
+		}
+		else
+		{
+			sampling_result[i] = sampling_result[i - num_sub];
+		}
+	}
 
 	const int instance = 1;
 	float elapsed_time[instance];
